@@ -47,7 +47,7 @@ You can:
 ## Video Demonstration
 A video demonstration of the application is available to showcase its functionality and features. The video provides a walkthrough of the application's interface and demonstrates how it handles real-time data updates.
 
-[Link to video demonstration](#) <!-- Replace with actual link when available -->
+https://github.com/KrishPatel1010/Crypto-Tracker/blob/main/public/Demo.mp4 <!-- Replace with actual link when available -->
 
 ## Project Structure
 ```
