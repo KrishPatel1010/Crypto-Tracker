@@ -12,7 +12,7 @@ const initialCryptos = [
     marketCap: 1861618902186,
     volume24h: 43874950947,
     circulatingSupply: 19.85,
-    image: "../logos/btc.png"
+    image: `${process.env.PUBLIC_URL}/logos/btc.png`
   },
   {
     id: 2,
@@ -25,7 +25,8 @@ const initialCryptos = [
     marketCap: 217581279327,
     volume24h: 23547469307,
     circulatingSupply: 120.71,
-    image: "../logos/eth.png"
+    image: `${process.env.PUBLIC_URL}/logos/eth.png`
+
   },
   {
     id: 3,
@@ -38,7 +39,8 @@ const initialCryptos = [
     marketCap: 145320022085,
     volume24h: 92288882007,
     circulatingSupply: 145.27,
-    image: "../logos/teth.png"
+    image: `${process.env.PUBLIC_URL}/logos/teth.png`
+
   },
   {
     id: 4,
@@ -51,7 +53,8 @@ const initialCryptos = [
     marketCap: 130073814966,
     volume24h: 5131481491,
     circulatingSupply: 58.39,
-    image: "../logos/xrp.png"
+    image: `${process.env.PUBLIC_URL}/logos/xrp.png`
+
   },
   {
     id: 5,
@@ -64,7 +67,8 @@ const initialCryptos = [
     marketCap: 85471956947,
     volume24h: 1874281784,
     circulatingSupply: 140.89,
-    image: "../logos/bnb.png"
+    image: `${process.env.PUBLIC_URL}/logos/bnb.png`
+
   }
 ];
 

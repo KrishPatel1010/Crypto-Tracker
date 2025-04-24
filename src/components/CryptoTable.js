@@ -52,7 +52,8 @@ const CryptoTable = () => {
               <td>{formatLargeNumber(crypto.volume24h)}</td>
               <td>{formatNumber(crypto.circulatingSupply)} {crypto.symbol}</td>
               <td>
-              <img src={`/charts/chart${crypto.id}.png`} width={150} alt="7-day chart" className="chart-image"/>
+              <img src={`${process.env.PUBLIC_URL}/charts/chart${crypto.id}.png`} width={150} alt="7-day chart" className="chart-image"/>
+
               </td>
             </tr>
           ))}
