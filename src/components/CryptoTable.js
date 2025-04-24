@@ -52,9 +52,7 @@ const CryptoTable = () => {
               <td>{formatLargeNumber(crypto.volume24h)}</td>
               <td>{formatNumber(crypto.circulatingSupply)} {crypto.symbol}</td>
               <td>
-                <div
-                  className={`chart-placeholder ${crypto.change7d >= 0 ? 'positive' : 'negative'}`}
-                />
+              <img src={`/charts/chart${crypto.id}.png`} width={150} alt="7-day chart" className="chart-image"/>
               </td>
             </tr>
           ))}
