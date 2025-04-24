@@ -20,7 +20,7 @@ Crypto Tracker provides users with up-to-date information on cryptocurrency pric
 ## Installation
 1. Clone the repository:
    ```
-   git clone https://github.com/PatelKrish1010/Crypto-Tracker.git
+   git clone https://github.com/KrishPatel1010/Crypto-Tracker.git
    ```
 2. Navigate to the project directory:
    ```
