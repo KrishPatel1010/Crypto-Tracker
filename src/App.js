@@ -1,28 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import CryptoTable from './components/CryptoTable';
-import MockWebSocket from './services/mockWebSocket';
 
 function App() {
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    // Initialize and connect to mock WebSocket
-    const ws = new MockWebSocket(dispatch);
-    ws.connect();
-    
-    // Clean up on component unmount
-    return () => {
-      ws.disconnect();
-    };
-  }, [dispatch]);
-
   return (
     <AppContainer>
       <Header>
         <Title>Cryptocurrency Market</Title>
-        <Subtitle>Real-time price updates (simulated)</Subtitle>
+        <Subtitle>Real-time price updates from CoinGecko</Subtitle>
       </Header>
       <CryptoTable />
     </AppContainer>

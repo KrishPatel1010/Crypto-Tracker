@@ -1,10 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFilter } from '../features/CryptoData';
 import './CryptoTable.css';
 import PercentChange from './PercentageChange';
 
 const CryptoTable = () => {
-  const cryptos = useSelector(state => state.crypto.assets);
+  const dispatch = useDispatch();
+  const { filteredAssets, filter } = useSelector(state => state.crypto);
 
   const formatNumber = (num) => num.toLocaleString();
   const formatPrice = (num) => num >= 1000 ? '$' + formatNumber(num.toFixed(2)) : '$' + num.toFixed(2);
@@ -12,6 +14,26 @@ const CryptoTable = () => {
 
   return (
     <div className="table-container">
+      <div className="filter-controls">
+        <button
+          className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+          onClick={() => dispatch(setFilter('all'))}
+        >
+          All
+        </button>
+        <button
+          className={`filter-btn ${filter === 'gainers' ? 'active' : ''}`}
+          onClick={() => dispatch(setFilter('gainers'))}
+        >
+          Top Gainers
+        </button>
+        <button
+          className={`filter-btn ${filter === 'losers' ? 'active' : ''}`}
+          onClick={() => dispatch(setFilter('losers'))}
+        >
+          Top Losers
+        </button>
+      </div>
       <table className="crypto-table">
         <thead>
           <tr>
@@ -24,11 +46,10 @@ const CryptoTable = () => {
             <th>Market Cap</th>
             <th>Volume(24h)</th>
             <th>Circulating Supply</th>
-            <th>Last 7 Days</th>
           </tr>
         </thead>
         <tbody>
-          {cryptos.map((crypto) => (
+          {filteredAssets.map((crypto) => (
             <tr key={crypto.id}>
               <td>{crypto.id}</td>
               <td>
@@ -36,8 +57,6 @@ const CryptoTable = () => {
                   <img
                     src={crypto.image}
                     alt={crypto.symbol}
-                    width="24"
-                    height="24"
                     className="crypto-logo"
                   />
                   <span className="crypto-name">{crypto.name}</span>
@@ -51,10 +70,6 @@ const CryptoTable = () => {
               <td>{formatLargeNumber(crypto.marketCap)}</td>
               <td>{formatLargeNumber(crypto.volume24h)}</td>
               <td>{formatNumber(crypto.circulatingSupply)} {crypto.symbol}</td>
-              <td>
-              <img src={`${process.env.PUBLIC_URL}/charts/chart${crypto.id}.png`} width={150} alt="7-day chart" className="chart-image"/>
-
-              </td>
             </tr>
           ))}
         </tbody>

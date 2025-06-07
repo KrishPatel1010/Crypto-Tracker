@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchCryptoData } from '../services/cryptoService';
 
+// Initial data to use instead of API calls
 const initialCryptos = [
   {
     id: 1,
@@ -26,7 +28,6 @@ const initialCryptos = [
     volume24h: 23547469307,
     circulatingSupply: 120.71,
     image: `${process.env.PUBLIC_URL}/logos/eth.png`
-
   },
   {
     id: 3,
@@ -40,7 +41,6 @@ const initialCryptos = [
     volume24h: 92288882007,
     circulatingSupply: 145.27,
     image: `${process.env.PUBLIC_URL}/logos/teth.png`
-
   },
   {
     id: 4,
@@ -54,7 +54,6 @@ const initialCryptos = [
     volume24h: 5131481491,
     circulatingSupply: 58.39,
     image: `${process.env.PUBLIC_URL}/logos/xrp.png`
-
   },
   {
     id: 5,
@@ -68,30 +67,60 @@ const initialCryptos = [
     volume24h: 1874281784,
     circulatingSupply: 140.89,
     image: `${process.env.PUBLIC_URL}/logos/bnb.png`
-
   }
 ];
+
+// Comment out the API call for now
+// export const fetchCryptoDataAsync = createAsyncThunk(
+//   'crypto/fetchData',
+//   async () => {
+//     const response = await fetchCryptoData();
+//     return response;
+//   }
+// );
 
 const CryptoData = createSlice({
   name: 'crypto',
   initialState: {
-    assets: initialCryptos
+    assets: initialCryptos,
+    filteredAssets: initialCryptos,
+    loading: false,
+    error: null,
+    filter: 'all'
   },
   reducers: {
-    updateCryptoData: (state, action) => {
-      const { id, price, change1h, change24h, change7d, volume24h } = action.payload;
-      const asset = state.assets.find(a => a.id === id);
-      if (asset) {
-        asset.price = price;
-        asset.change1h = change1h;
-        asset.change24h = change24h;
-        asset.change7d = change7d;
-        asset.volume24h = volume24h;
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+      switch (action.payload) {
+        case 'gainers':
+          state.filteredAssets = [...state.assets].sort((a, b) => b.change24h - a.change24h);
+          break;
+        case 'losers':
+          state.filteredAssets = [...state.assets].sort((a, b) => a.change24h - b.change24h);
+          break;
+        default:
+          state.filteredAssets = state.assets;
       }
     }
   }
+  // Comment out the API-related reducers
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(fetchCryptoDataAsync.pending, (state) => {
+  //       state.loading = true;
+  //     })
+  //     .addCase(fetchCryptoDataAsync.fulfilled, (state, action) => {
+  //       state.loading = false;
+  //       state.assets = action.payload;
+  //       state.filteredAssets = action.payload;
+  //     })
+  //     .addCase(fetchCryptoDataAsync.rejected, (state, action) => {
+  //       state.loading = false;
+  //       state.error = action.error.message;
+  //     });
+  // }
 });
 
-export const { updateCryptoData } = CryptoData.actions;
+export const { setFilter } = CryptoData.actions;
 
 export default CryptoData.reducer;
